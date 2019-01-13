@@ -816,7 +816,7 @@ message.channel.stopTyping()
 
 
 
-var devs =  "392950841935527936";
+var devs =  "349095859859881984";
 const adminprefix = "#";
 client.on('message', message => {
   var argresult = message.content.split(` `).slice(1).join(' ');
