@@ -8,54 +8,6 @@ const prefix = "#" // برفكس
 let profile = JSON.parse(fs.readFileSync("profile.json", "utf8"))
 
 
-
-client.on("message", message => {
-    if (message.author.bot || !message.guild) return; 
-   
-    if (message.content.indexOf(prefix) !== 0) return;
-  
-    const args = message.content.slice(prefix.length).trim().split(/ +/g);
-    const command = args.shift().toLowerCase();
-  
-    if(command === "points") {
-      return message.reply(`You currently have ${score.points} points and are level ${score.level}!`);
-    }
-    
-    if(command === "give") {
-      if(!message.author.id === message.guild.owner) return message.reply("You're not the boss of me, you can't do that!");
-      const user = message.mentions.users.first() || client.users.get(args[0]);
-      if(!user) return message.reply("You must mention someone or give their ID!");
-      const pointsToAdd = parseInt(args[1], 10);
-      if(!pointsToAdd) return message.reply("You didn't tell me how many points to give...");
-          let userscore = client.getScore.get(user.id, message.guild.id);      
-      if (!userscore) {
-        userscore = { id: `${message.guild.id}-${user.id}`, user: user.id, guild: message.guild.id, points: 0, level: 1 };
-      }
-      userscore.points += pointsToAdd;
-      let userLevel = Math.floor(0.1 * Math.sqrt(score.points));
-      userscore.level = userLevel;
-      client.setScore.run(userscore);
-    
-      return message.channel.send(`${user.tag} has received ${pointsToAdd} points and now stands at ${userscore.points} points.`);
-    }
-    
-    if(command === "top") {
-      const top10 = sql.prepare("SELECT * FROM scores WHERE guild = ? ORDER BY points DESC LIMIT 10;").all(message.guild.id);
-      const embed = new Discord.RichEmbed()
-        .setTitle("**TOP 10 TEXT** :speech_balloon:")
-        .setAuthor('📋 Guild Score Leaderboards', message.guild.iconURL)
-        .setColor(0x00AE86);
-  
-      for(const data of top10) {
-        embed.addField(client.users.get(data.user).tag, `XP: \`${data.points}\` | LVL: \`${data.level}\``);
-      }
-      return message.channel.send({embed});
-    }
-    
-  });
-
-
-
 client.on('message', message => {
     var prefix = "#";
   if (message.author.x5bz) return;
@@ -410,7 +362,7 @@ client.on('message', message => {
   let embed = new Discord.RichEmbed()
 .setAuthor(message.author.username)
 .setColor("#9B59B6")
-.addField(" ** :gear: Server Support :gear: **" , "  **https://discord.gg/NgdvJy3**")
+.addField(" ** :gear: Server Support :gear: **" , "  **https://discord.gg/6sUQXFA**")
   
   
 message.channel.sendEmbed(embed);
